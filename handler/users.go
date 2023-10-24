@@ -23,6 +23,13 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
 		fmt.Println("\n'POST'-response sent on", time.Now().Format(time.RFC850))
+	case "PUT":
+		updateUser(w, r)
+
+		reqMessage := " 'PUT'-response sent"
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
+		fmt.Println("\n'POST'-response sent on", time.Now().Format(time.RFC850))
 	case "DELETE":
 		deleteUser(w,r)
 
@@ -72,6 +79,45 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("____________________________")
 	fmt.Println("Password is: ", newUser.Password)
 	fmt.Println("____________________________")
+}
+func updateUser(w http.ResponseWriter, r *http.Request) {
+	var updateUser models.User
+	json.NewDecoder(r.Body).Decode(&updateUser)
+
+	var userData []models.User
+	byteData, _ := os.ReadFile("db/users.json")
+	json.Unmarshal(byteData, &userData)
+
+	for i := 0; i < len(userData); i++ {
+		if userData[i].Id == updateUser.Id {
+			fmt.Println("\n_____________________________________________")
+			fmt.Println("Found and Updated user at", time.Now().Format(time.RFC850))
+			fmt.Println("_____________________________________________")
+			fmt.Println("____________________________")
+			fmt.Println("User ID was: ", userData[i].Id)
+			fmt.Println("____________________________")
+			fmt.Println("First name was: ", userData[i].Firstname, " updatet to ", updateUser.Firstname)
+			fmt.Println("____________________________")
+			fmt.Println("Last name was: ", userData[i].Lastname, " updatet to ", updateUser.Lastname)
+			fmt.Println("____________________________")
+			fmt.Println("Email or username was: ", userData[i].EmailUsername, " updatet to ", updateUser.EmailUsername)
+			fmt.Println("____________________________")
+			fmt.Println("Password was: ", userData[i].Password, " updatet to ", updateUser.Password)
+			fmt.Println("____________________________")
+			userData[i].EmailUsername = updateUser.EmailUsername
+			userData[i].Firstname = updateUser.Firstname
+			userData[i].Lastname = updateUser.Lastname
+			userData[i].Password = updateUser.Password
+		}
+	}
+
+	res, _ := json.Marshal(userData)
+	os.WriteFile("db/users.json", res, 0)
+
+	w.WriteHeader(http.StatusOK)
+	fmt.Println("--------------------------------")
+	fmt.Println("Operation Completed")
+	fmt.Println("--------------------------------")
 }
 func deleteUser(w http.ResponseWriter, r *http.Request) {
 	var deleteUser models.User
