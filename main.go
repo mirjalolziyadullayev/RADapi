@@ -16,7 +16,7 @@ r := mux.NewRouter()
 r.HandleFunc("/users", handler.UsersHandler).Methods("POST","GET","DELETE")
 
 // Define the allowed origins, methods, and headers
-allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500"})
+allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500", "http://localhost:5500"})
 allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 allowedHeaders := handlers.AllowedHeaders([]string{"Content-Type"})
 
@@ -24,7 +24,7 @@ allowedHeaders := handlers.AllowedHeaders([]string{"Content-Type"})
 corsHandler := handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders)(r)
 
 // Start the server
-fmt.Printf("Server is running on port :8080")
+fmt.Printf("Server is running on port :8080\n")
 http.Handle("/", corsHandler)
 http.ListenAndServe(":8080", nil)
 }
