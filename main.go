@@ -16,7 +16,7 @@ r := mux.NewRouter()
 r.HandleFunc("/users", handler.UsersHandler).Methods("POST","GET","DELETE")
 
 // Define the allowed origins, methods, and headers
-allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500", "http://localhost:5500"})
+allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500", "http://localhost:5500", "https://mirjalolziyadullayev.github.io"})
 allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 allowedHeaders := handlers.AllowedHeaders([]string{"Content-Type"})
 
