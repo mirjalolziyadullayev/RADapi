@@ -15,28 +15,28 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 		getAllUsers(w,r)	
 
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Println("\n'GET'-response sent on", time.Now().Format(time.RFC850))
+		fmt.Println("\n'GET'-response sent to /users on", time.Now().Format(time.RFC850))
 	case "POST":
 		createUser(w,r)
 
 		reqMessage := " 'POST'-response sent"
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
-		fmt.Println("\n'POST'-response sent on", time.Now().Format(time.RFC850))
+		fmt.Println("\n'POST'-response sent to /users on", time.Now().Format(time.RFC850))
 	case "PUT":
 		updateUser(w, r)
 
 		reqMessage := " 'PUT'-response sent"
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
-		fmt.Println("\n'POST'-response sent on", time.Now().Format(time.RFC850))
+		fmt.Println("\n'POST'-response sent to /users on", time.Now().Format(time.RFC850))
 	case "DELETE":
 		deleteUser(w,r)
 
 		reqMessage := " 'DELETE'-response sent"
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
-		fmt.Println("\n'DELETE'-response sent on", time.Now().Format(time.RFC850))
+		fmt.Println("\n'DELETE'-response sent to /users on", time.Now().Format(time.RFC850))
 	}
 }
 
