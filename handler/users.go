@@ -41,13 +41,31 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAllUsers(w http.ResponseWriter, r *http.Request) {
-	var usersData []models.User
+	var user []models.User
 	byteData, _ := os.ReadFile("db/users.json")
-	json.Unmarshal(byteData, &usersData)
+	json.Unmarshal(byteData, &user)
+
+	var userContent []models.UserContent
+
+	for i := 0; i < len(user); i++ {
+		var userAllContent models.UserContent
+		userAllContent.User = user[i]
+
+		var notes []models.Notes
+		byteData, _ := os.ReadFile("db/notes.json")
+		json.Unmarshal(byteData, &notes)
+
+		for j := 0; j < len(notes); j++ {
+			if notes[j].UserID == user[i].Id {
+				userAllContent.Notes = append(userAllContent.Notes, notes[j])
+			}
+		}
+		userContent = append(userContent, userAllContent)
+	}
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(usersData)
+	json.NewEncoder(w).Encode(userContent)
 }
 func createUser(w http.ResponseWriter, r *http.Request) {
 	var newUser models.User

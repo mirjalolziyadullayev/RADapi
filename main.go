@@ -14,7 +14,6 @@ func main() {
 
 	// API routes
 	r.HandleFunc("/users", handler.UsersHandler).Methods("GET", "POST", "PUT", "DELETE")
-	r.HandleFunc("/profile", handler.ProfileHandler).Methods("GET", "PUT", "DELETE")
 	r.HandleFunc("/notes", handler.NotesHandler).Methods("GET","POST","PUT","DELETE")
 
 	// Define the allowed origins, methods, and headers

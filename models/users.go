@@ -7,3 +7,8 @@ type User struct {
 	EmailUsername string
 	Password string
 }
+
+type UserContent struct {
+	User User
+	Notes []Notes
+}

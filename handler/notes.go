@@ -110,11 +110,11 @@ func updateNote(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < len(usersData); i++ {
 		if usersData[i].Id == updateNote.UserID {
-			for i := 0; i < len(notesData); i++ {
-				if notesData[i].ID == updateNote.ID{
-					notesData[i].Title = updateNote.Title
-					notesData[i].Content = updateNote.Content
-					notesData[i].UpdatedTime = time.Now().Format(time.RFC850)
+			for j := 0; j < len(notesData); j++ {
+				if notesData[j].ID == updateNote.ID{
+					notesData[j].Title = updateNote.Title
+					notesData[j].Content = updateNote.Content
+					notesData[j].UpdatedTime = time.Now().Format(time.RFC850)
 					noteFound = true
 					break 
 				} 
@@ -164,9 +164,9 @@ func deleteNote(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < len(usersData); i++ {
 		if usersData[i].Id == deleteNote.UserID {
-			for i := 0; i < len(notesData); i++ {
-				if notesData[i].ID == deleteNote.ID {
-					notesData = append(notesData[:i], notesData[i+1:]...)
+			for j := 0; j < len(notesData); j++ {
+				if notesData[j].ID == deleteNote.ID {
+					notesData = append(notesData[:j], notesData[j+1:]...)
 					noteFound = true
 					break
 				} 
