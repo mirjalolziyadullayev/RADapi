@@ -1,11 +1,10 @@
 package models
 
-import "time"
-
 type Notes struct {
-	Id          int
+	ID         	int
+	UserID 		int
 	Title       string
 	Content     string
-	CreatedTime time.Time
-	UpdatedTime time.Time
+	CreatedTime string
+	UpdatedTime string
 }

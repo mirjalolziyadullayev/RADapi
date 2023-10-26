@@ -39,7 +39,7 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAccount(w http.ResponseWriter, r *http.Request) {
-
+	
 }
 func updateAccount(w http.ResponseWriter, r *http.Request) {
 

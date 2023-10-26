@@ -4,7 +4,6 @@ import (
 	"RADserver/handler"
 	"fmt"
 	"net/http"
-
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
@@ -16,6 +15,7 @@ func main() {
 	// API routes
 	r.HandleFunc("/users", handler.UsersHandler).Methods("GET", "POST", "PUT", "DELETE")
 	r.HandleFunc("/profile", handler.ProfileHandler).Methods("GET", "PUT", "DELETE")
+	r.HandleFunc("/notes", handler.NotesHandler).Methods("GET","POST","PUT","DELETE")
 
 	// Define the allowed origins, methods, and headers
 	allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500", "http://localhost:5500"})
