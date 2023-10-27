@@ -57,7 +57,7 @@ func createTask(w http.ResponseWriter, r *http.Request){
 	json.Unmarshal(byteData, &tasksData)
 
 	var userData []models.User
-	userByte,_ := os.ReadFile("db/tasks.json")
+	userByte,_ := os.ReadFile("db/users.json")
 	json.Unmarshal(userByte, &userData)
 
 	var userFound bool
