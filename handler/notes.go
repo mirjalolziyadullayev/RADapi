@@ -139,7 +139,7 @@ func updateNote(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	fmt.Println("\n_____________________________________________")
-	fmt.Println("Updated new note at", time.Now().Format(time.RFC850))
+	fmt.Println("Updated note at", time.Now().Format(time.RFC850))
 	fmt.Println("_____________________________________________")
 	fmt.Println("____________________________")
 	fmt.Println("ID is: ", updateNote.ID)

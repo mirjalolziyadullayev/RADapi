@@ -19,21 +19,21 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		createUser(w,r)
 
-		reqMessage := " 'POST'-response sent"
+		reqMessage := "'POST'-response sent"
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
 		fmt.Println("\n'POST'-response sent to /users on", time.Now().Format(time.RFC850))
 	case "PUT":
 		updateUser(w, r)
 
-		reqMessage := " 'PUT'-response sent"
+		reqMessage := "'PUT'-response sent"
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
 		fmt.Println("\n'POST'-response sent to /users on", time.Now().Format(time.RFC850))
 	case "DELETE":
 		deleteUser(w,r)
 
-		reqMessage := " 'DELETE'-response sent"
+		reqMessage := "'DELETE'-response sent"
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"request": "%s"}`, reqMessage)
 		fmt.Println("\n'DELETE'-response sent to /users on", time.Now().Format(time.RFC850))
@@ -132,7 +132,7 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(userData)
 	os.WriteFile("db/users.json", res, 0)
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusAccepted)
 	fmt.Println("--------------------------------")
 	fmt.Println("Operation Completed")
 	fmt.Println("--------------------------------")
@@ -168,7 +168,7 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(userData)
 	os.WriteFile("db/users.json", res, 0)
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusAccepted)
 	fmt.Println("--------------------------------")
 	fmt.Println("Operation Completed")
 	fmt.Println("--------------------------------")
