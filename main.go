@@ -13,7 +13,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// API routes
-	r.HandleFunc("/users", handler.UsersHandler).Methods("GET", "POST", "PUT", "DELETE")
+	r.HandleFunc("/users", handler.UsersHandler).Methods("GET","POST","PUT","DELETE")
 	r.HandleFunc("/notes", handler.NotesHandler).Methods("GET","POST","PUT","DELETE")
 	r.HandleFunc("/tasks", handler.TasksHandler).Methods("GET","POST","PUT","DELETE")
 

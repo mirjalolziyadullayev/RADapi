@@ -55,11 +55,22 @@ func getAllUsers(w http.ResponseWriter, r *http.Request) {
 		byteData, _ := os.ReadFile("db/notes.json")
 		json.Unmarshal(byteData, &notes)
 
+		var tasks []models.Task
+		taskByte, _ := os.ReadFile("db/tasks.json")
+		json.Unmarshal(taskByte, &tasks)
+
 		for j := 0; j < len(notes); j++ {
 			if notes[j].UserID == user[i].Id {
 				userAllContent.Notes = append(userAllContent.Notes, notes[j])
 			}
 		}
+
+		for n := 0; n < len(tasks); n++ {
+			if tasks[n].UserID == user[i].Id {
+				userAllContent.Task = append(userAllContent.Task, tasks[n])
+			}
+		}
+
 		userContent = append(userContent, userAllContent)
 	}
 
@@ -74,7 +85,6 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	var userData []models.User
 	byteData, _ := os.ReadFile("db/users.json")
 	json.Unmarshal(byteData, &userData)
-
 
 	newUser.Id = len(userData)+1
 	userData = append(userData, newUser)
@@ -106,6 +116,8 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	byteData, _ := os.ReadFile("db/users.json")
 	json.Unmarshal(byteData, &userData)
 
+	var userFound bool 
+
 	for i := 0; i < len(userData); i++ {
 		if userData[i].Id == updateUser.Id {
 			fmt.Println("\n_____________________________________________")
@@ -126,16 +138,21 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 			userData[i].Firstname = updateUser.Firstname
 			userData[i].Lastname = updateUser.Lastname
 			userData[i].Password = updateUser.Password
+			userFound = true
+			break
 		}
+	}
+	if !userFound {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "User with such an ID not found.")
+		fmt.Println("User with such an ID not found.", updateUser.Id)
+		return
 	}
 
 	res, _ := json.Marshal(userData)
 	os.WriteFile("db/users.json", res, 0)
 
 	w.WriteHeader(http.StatusAccepted)
-	fmt.Println("--------------------------------")
-	fmt.Println("Operation Completed")
-	fmt.Println("--------------------------------")
 }
 func deleteUser(w http.ResponseWriter, r *http.Request) {
 	var deleteUser models.User
@@ -144,6 +161,8 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 	var userData []models.User
 	byteData, _ := os.ReadFile("db/users.json")
 	json.Unmarshal(byteData, &userData)
+
+	var userFound bool
 
 	for i := 0; i < len(userData); i++ {
 		if userData[i].EmailUsername == deleteUser.EmailUsername && userData[i].Password == deleteUser.Password {
@@ -162,14 +181,19 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Password was: ", userData[i].Password)
 			fmt.Println("____________________________")
 			userData = append(userData[:i], userData[i+1:]... )
+			userFound = true
+			break
 		}
+	}
+	if !userFound {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "User with such an ID not found.")
+		fmt.Println("User with such an ID not found.", deleteUser.Id)
+		return
 	}
 
 	res, _ := json.Marshal(userData)
 	os.WriteFile("db/users.json", res, 0)
 
 	w.WriteHeader(http.StatusAccepted)
-	fmt.Println("--------------------------------")
-	fmt.Println("Operation Completed")
-	fmt.Println("--------------------------------")
 }

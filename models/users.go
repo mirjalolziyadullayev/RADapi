@@ -11,4 +11,5 @@ type User struct {
 type UserContent struct {
 	User User
 	Notes []Notes
+	Task []Task
 }
