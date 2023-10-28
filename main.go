@@ -18,14 +18,14 @@ func main() {
 	r.HandleFunc("/tasks", handler.TasksHandler).Methods("GET","POST","PUT","DELETE")
 
 	// Define the allowed origins, methods, and headers
-	allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500", "http://localhost:5500","https://radserver.onrender.com"})
+	allowedOrigins := handlers.AllowedOrigins([]string{"http://127.0.0.1:5500", "http://localhost:5500","https://radserver.onrender.com", ""})
 	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 	allowedHeaders := handlers.AllowedHeaders([]string{"Content-Type"})
 
 	// CORS
 	corsHandler := handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders)(r)
 
-	fmt.Printf("Server is running on port :8080\n")
+	fmt.Printf("Server started still running on domain http://radserver.onrender.com and port :8000\n")
 	http.Handle("/", corsHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8000", nil)
 }
