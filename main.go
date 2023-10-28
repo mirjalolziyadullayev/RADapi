@@ -25,7 +25,7 @@ func main() {
 	// CORS
 	corsHandler := handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders)(r)
 
-	fmt.Printf("Server started still running on domain http://radserver.onrender.com and port :8000\n")
+	fmt.Printf("Your server is running, Domain 'http://radserver.onrender.com', Port ':8000'\n")
 	http.Handle("/", corsHandler)
 	http.ListenAndServe(":8000", nil)
 }
