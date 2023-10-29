@@ -6,10 +6,6 @@ type User struct {
 	Lastname string
 	EmailUsername string
 	Password string
-}
-
-type UserContent struct {
-	User User
 	Notes []Notes
 	Task []Task
 }

@@ -45,38 +45,32 @@ func getAllUsers(w http.ResponseWriter, r *http.Request) {
 	byteData, _ := os.ReadFile("db/users.json")
 	json.Unmarshal(byteData, &user)
 
-	var userContent []models.UserContent
-
 	for i := 0; i < len(user); i++ {
-		var userAllContent models.UserContent
-		userAllContent.User = user[i]
+		var Notes []models.Notes
+		notesByte,_ := os.ReadFile("db/notes.json")
+		json.Unmarshal(notesByte, &Notes)
 
-		var notes []models.Notes
-		byteData, _ := os.ReadFile("db/notes.json")
-		json.Unmarshal(byteData, &notes)
+		var Tasks []models.Task
+		tasksByte,_ := os.ReadFile("db/tasks.json")
+		json.Unmarshal(tasksByte, &Tasks)
 
-		var tasks []models.Task
-		taskByte, _ := os.ReadFile("db/tasks.json")
-		json.Unmarshal(taskByte, &tasks)
 
-		for j := 0; j < len(notes); j++ {
-			if notes[j].UserID == user[i].Id {
-				userAllContent.Notes = append(userAllContent.Notes, notes[j])
+		for j := 0; j < len(Notes); j++ {
+			if Notes[j].UserID == user[i].Id {
+				user[i].Notes = append(user[i].Notes, Notes[j])
 			}
 		}
 
-		for n := 0; n < len(tasks); n++ {
-			if tasks[n].UserID == user[i].Id {
-				userAllContent.Task = append(userAllContent.Task, tasks[n])
+		for k := 0; k < len(Tasks); k++ {
+			if Tasks[k].UserID == user[i].Id {
+				user[i].Task = append(user[i].Task, Tasks[k])
 			}
 		}
-
-		userContent = append(userContent, userAllContent)
 	}
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(userContent)
+	json.NewEncoder(w).Encode(user)
 }
 func createUser(w http.ResponseWriter, r *http.Request) {
 	var newUser models.User
