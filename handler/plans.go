@@ -23,7 +23,7 @@ func PlansHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("'PUT'-response sent to /plans on", time.Now().Format(time.RFC850))
 	case "DELETE":
 		deletePlan(w,r)	
-
+		
 		reqMessage := "'DELETE'-request sent."
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w,`{"request": "%s"}`, reqMessage)
@@ -32,14 +32,14 @@ func PlansHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAllPlans(w http.ResponseWriter, r *http.Request) {
-	
+	/*Something*/
 }
 func createPlan(w http.ResponseWriter, r *http.Request) {
-
+	/*Something*/
 }
 func updatePlan(w http.ResponseWriter, r *http.Request) {
-	
+	/*Something*/
 }
 func deletePlan(w http.ResponseWriter, r *http.Request) {
-	
+	/*Something*/
 }
